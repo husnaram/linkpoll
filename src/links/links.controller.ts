@@ -10,12 +10,6 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { LinkOwnerAndAdminGuard } from './guards/link-owner-and-admin.guard';
-import { CreateLinkDto } from './dto/create-link.dto';
-import { LinksService } from './links.service';
-import { LinksClosesScheduleService } from './links-closes-schedule.service';
-import { ClosesAtPipe } from './pipes/closes-at.pipe';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -25,7 +19,13 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { LinksService } from './links.service';
+import { LinksClosesScheduleService } from './links-closes-schedule.service';
 import { LinkEntity } from './entities/link.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { LinkOwnerAndAdminGuard } from './guards/link-owner-and-admin.guard';
+import { CreateLinkDto } from './dto/create-link.dto';
+import { ClosesAtPipe } from './pipes/closes-at.pipe';
 
 @ApiTags('Link')
 @Controller('links')

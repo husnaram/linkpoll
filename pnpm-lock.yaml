@@ -20,9 +20,11 @@ specifiers:
   '@types/express': ^4.17.13
   '@types/faker': ^5.5.8
   '@types/jest': ^27.0.1
+  '@types/multer': ^1.4.7
   '@types/node': ^16.0.0
   '@types/passport-jwt': ^3.0.6
   '@types/passport-local': ^1.0.34
+  '@types/randomcolor': ^0.5.6
   '@types/supertest': ^2.0.11
   '@typescript-eslint/eslint-plugin': ^4.28.2
   '@typescript-eslint/parser': ^4.28.2
@@ -42,6 +44,7 @@ specifiers:
   passport-local: ^1.0.0
   pg: ^8.7.1
   prettier: ^2.3.2
+  randomcolor: ^0.6.2
   reflect-metadata: ^0.1.13
   rimraf: ^3.0.2
   rxjs: ^7.2.0
@@ -65,6 +68,7 @@ dependencies:
   '@nestjs/schedule': 1.0.1_be74d10e7c1accb5ea6dd58471a1ec77
   '@nestjs/swagger': 5.1.0_d6863c03ba5575c4f4a12471120bc20a
   '@nestjs/typeorm': 8.0.2_678658ca2a76b283f366f444c6ec3f55
+  '@types/randomcolor': 0.5.6
   bcrypt: 5.0.1
   class-transformer: 0.4.0
   class-validator: 0.13.1
@@ -75,6 +79,7 @@ dependencies:
   passport-jwt: 4.0.0
   passport-local: 1.0.0
   pg: 8.7.1
+  randomcolor: 0.6.2
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rxjs: 7.3.0
@@ -91,6 +96,7 @@ devDependencies:
   '@types/express': 4.17.13
   '@types/faker': 5.5.8
   '@types/jest': 27.0.1
+  '@types/multer': 1.4.7
   '@types/node': 16.9.2
   '@types/passport-jwt': 3.0.6
   '@types/passport-local': 1.0.34
@@ -1263,6 +1269,12 @@ packages:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
     dev: true
 
+  /@types/multer/1.4.7:
+    resolution: {integrity: sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==}
+    dependencies:
+      '@types/express': 4.17.13
+    dev: true
+
   /@types/node/16.9.2:
     resolution: {integrity: sha512-ZHty/hKoOLZvSz6BtP1g7tc7nUeJhoCf3flLjh8ZEv1vFKBWHXcnMbJMyN/pftSljNyy0kNW/UqI3DccnBnZ8w==}
 
@@ -1306,6 +1318,10 @@ packages:
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
     dev: true
+
+  /@types/randomcolor/0.5.6:
+    resolution: {integrity: sha512-lKkW8DGUQpZldTrwa+HM5rY+7eTyaHOMTsnj9ewt7AAwXuMPwBmkLlfh8+SXdgOhBW9iNI4x4zRjQ/TQZkdycQ==}
+    dev: false
 
   /@types/range-parser/1.2.4:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
@@ -4111,7 +4127,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.isstring: 4.0.1
       lodash.once: 4.1.1
-      ms: 2.1.2
+      ms: 2.1.3
       semver: 5.7.1
     dev: false
 
@@ -4395,6 +4411,10 @@ packages:
 
   /ms/2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
+
+  /ms/2.1.3:
+    resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+    dev: false
 
   /multer/1.4.2:
     resolution: {integrity: sha512-xY8pX7V+ybyUpbYMxtjM9KAiD9ixtg5/JkeKUTD6xilfDv0vzzOFcCp4Ljb1UU3tSOM3VTZtKo63OmzOrGi3Cg==}
@@ -4938,6 +4958,10 @@ packages:
     dependencies:
       safe-buffer: 5.2.1
     dev: true
+
+  /randomcolor/0.6.2:
+    resolution: {integrity: sha512-Mn6TbyYpFgwFuQ8KJKqf3bqqY9O1y37/0jgSK/61PUxV4QfIMv0+K2ioq8DfOjkBslcjwSzRfIDEXfzA9aCx7A==}
+    dev: false
 
   /range-parser/1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}

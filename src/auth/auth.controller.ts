@@ -10,7 +10,6 @@ import {
 import {
   ApiBasicAuth,
   ApiBody,
-  ApiHeader,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -18,14 +17,15 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
-import { ApiOkResponseSchema } from 'src/common/swagger-api-schemas/api-ok-response.schema';
-import { ApiNotFoundResponseSchema } from 'src/common/swagger-api-schemas/api-not-found-response.schema';
-import { ApiUnauthorizedResponseSchema } from 'src/common/swagger-api-schemas/api-unauthorized-response.schema';
+import { ApiOkResponseSchema } from '../common/swagger-api-schemas/api-ok-response.schema';
+import { ApiNotFoundResponseSchema } from '../common/swagger-api-schemas/api-not-found-response.schema';
+import { ApiUnauthorizedResponseSchema } from '../common/swagger-api-schemas/api-unauthorized-response.schema';
+import { ApiBodyLoginResponseSchema } from 'src/common/swagger-api-schemas/api-body-login-response.schema';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -34,20 +34,7 @@ export class AuthController {
 
   @ApiBasicAuth()
   @ApiOperation({ summary: 'Login' })
-  @ApiBody({
-    description: 'User login with username and password.',
-    schema: {
-      type: 'object',
-      properties: {
-        username: { type: 'number' },
-        password: { type: 'string' },
-      },
-      example: {
-        username: 'loppo',
-        password: '932kdlpp',
-      },
-    },
-  })
+  @ApiBody(ApiBodyLoginResponseSchema('User login with username and password.'))
   @ApiOkResponse(ApiOkResponseSchema('User success login.'))
   @ApiNotFoundResponse(ApiNotFoundResponseSchema('Username'))
   @ApiUnauthorizedResponse(ApiUnauthorizedResponseSchema('Password wrong.'))

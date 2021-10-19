@@ -9,10 +9,11 @@ import {
   BeforeUpdate,
   OneToMany,
 } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+import randomColor from 'randomcolor';
 import * as bcrypt from 'bcrypt';
 import { LinkEntity } from '../../links/entities/link.entity';
 import { LinkPollEntity } from '../../link-polls/entities/link-poll.entity';
-import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('users')
 export class UserEntity {
@@ -30,7 +31,11 @@ export class UserEntity {
 
   @ApiProperty()
   @Expose({ name: 'profile_color' })
-  @Column({ name: 'profile_color', nullable: true })
+  @Column({
+    name: 'profile_color',
+    nullable: true,
+    default: randomColor(),
+  })
   profileColor: string;
 
   @Exclude()
@@ -53,9 +58,10 @@ export class UserEntity {
   @ApiProperty()
   @Exclude()
   @Column({
+    name: 'refresh_token',
     nullable: true,
   })
-  currentHashedRefreshToken?: string;
+  refreshToken?: string;
 
   @ApiProperty()
   @Expose({ name: 'created_at' })

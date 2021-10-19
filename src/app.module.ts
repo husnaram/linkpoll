@@ -5,8 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { LinksModule } from './links/links.module';
-import { ResponWrapperInterceptor } from './common/interceptors/respon-wrapper.interceptor';
 import { LinkPollsModule } from './link-polls/link-polls.module';
+import { ResponWrapperInterceptor } from './common/interceptors/respon-wrapper.interceptor';
 
 @Module({
   imports: [

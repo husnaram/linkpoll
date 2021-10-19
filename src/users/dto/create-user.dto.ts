@@ -17,15 +17,15 @@ export class CreateUserDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  readonly profile_color: string;
+  readonly profile_color?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  readonly avatar_filename: string;
+  readonly avatar_filename?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  readonly currentHashedRefreshToken?: string;
+  readonly refreshToken?: string;
 }

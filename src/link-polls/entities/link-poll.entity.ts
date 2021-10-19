@@ -3,7 +3,6 @@ import { LinkEntity } from '../../links/entities/link.entity';
 import { UserEntity } from '../../users/entities/user.entity';
 import {
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -35,11 +34,6 @@ export class LinkPollEntity {
   })
   @JoinColumn({ name: 'link_id' })
   link: LinkEntity;
-
-  // @ApiProperty()
-  // @Expose({ name: 'deleted_at' })
-  // @DeleteDateColumn({ name: 'deleted_at' })
-  // deletedAt: Date;
 
   @ApiProperty()
   @Expose({ name: 'created_at' })

@@ -1,10 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
-import { LinkPollEntity } from '../../link-polls/entities/link-poll.entity';
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -12,6 +8,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+import { Expose } from 'class-transformer';
+import { LinkPollEntity } from '../../link-polls/entities/link-poll.entity';
 import { UserEntity } from '../../users/entities/user.entity';
 
 @Entity('links')

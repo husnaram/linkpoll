@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { LinksService } from './links.service';
 
 @Injectable()

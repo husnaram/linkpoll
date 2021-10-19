@@ -4,7 +4,7 @@ import {
   Injectable,
   PipeTransform,
 } from '@nestjs/common';
-import { ScheduleTimeUnits } from 'src/common/enums/schedule-time-units.enum';
+import { ScheduleTimeUnits } from '../enums/schedule-time-units.enum';
 import { CreateLinkDto } from '../dto/create-link.dto';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class ClosesAtPipe implements PipeTransform {
       case ScheduleTimeUnits.Minute:
         break;
       default:
-        throw new BadRequestException('closesAt field');
+        throw new BadRequestException('closesAt field invalid.');
     }
     return value;
   }

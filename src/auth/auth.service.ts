@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
-import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
@@ -30,7 +31,7 @@ export class AuthService {
       isAdmin: user.isAdmin,
     };
     const token = this.jwtService.sign(payload, {
-      secret: jwtConstants.access,
+      secret: this.configService.get<string>('JWT_ACCESS_TOKEN'),
       expiresIn: '20m',
     });
 
@@ -44,7 +45,7 @@ export class AuthService {
       isAdmin: user.isAdmin,
     };
     const token = this.jwtService.sign(payload, {
-      secret: jwtConstants.refresh,
+      secret: this.configService.get<string>('JWT_REFRESH_TOKEN'),
       expiresIn: '2 days',
     });
 
@@ -52,9 +53,9 @@ export class AuthService {
   }
 
   async storeRefreshToken(refreshToken: string, userId: number) {
-    const currentHashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+    const jwtRefreshToken = await bcrypt.hash(refreshToken, 10);
     await this.usersService.update(userId, {
-      currentHashedRefreshToken,
+      refreshToken: jwtRefreshToken,
     });
   }
 
@@ -65,7 +66,7 @@ export class AuthService {
     const user = await this.usersService.findByUsername(username);
     const isRefreshTokenMatching = await bcrypt.compare(
       refreshToken,
-      user.currentHashedRefreshToken,
+      user.refreshToken,
     );
 
     if (isRefreshTokenMatching) {

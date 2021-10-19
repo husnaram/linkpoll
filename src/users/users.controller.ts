@@ -14,6 +14,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -26,6 +28,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { ApiCreatedResponseSchema } from '../common/swagger-api-schemas/api-created-response.schema';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('User')
 @Controller('users')
@@ -284,5 +287,11 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
+  }
+
+  @Post('upload-avatar')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadAvatar(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
   }
 }
