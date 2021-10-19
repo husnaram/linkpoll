@@ -1,7 +1,31 @@
-import { Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { ApiBasicAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  Request,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBasicAuth,
+  ApiBody,
+  ApiHeader,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { Response } from 'express';
+import * as dayjs from 'dayjs';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { ApiOkResponseSchema } from 'src/common/swagger-api-schemas/api-ok-response.schema';
+import { ApiNotFoundResponseSchema } from 'src/common/swagger-api-schemas/api-not-found-response.schema';
+import { ApiUnauthorizedResponseSchema } from 'src/common/swagger-api-schemas/api-unauthorized-response.schema';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -10,10 +34,71 @@ export class AuthController {
 
   @ApiBasicAuth()
   @ApiOperation({ summary: 'Login' })
-  @ApiBody({})
+  @ApiBody({
+    description: 'User login with username and password.',
+    schema: {
+      type: 'object',
+      properties: {
+        username: { type: 'number' },
+        password: { type: 'string' },
+      },
+      example: {
+        username: 'loppo',
+        password: '932kdlpp',
+      },
+    },
+  })
+  @ApiOkResponse(ApiOkResponseSchema('User success login.'))
+  @ApiNotFoundResponse(ApiNotFoundResponseSchema('Username'))
+  @ApiUnauthorizedResponse(ApiUnauthorizedResponseSchema('Password wrong.'))
+  @HttpCode(200)
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req: any) {
-    return this.authService.login(req.user);
+  async login(@Request() req: any, @Res({ passthrough: true }) res: Response) {
+    const { user } = req;
+    const accessToken = this.authService.generateJwtAccessToken(user);
+    const refreshToken = this.authService.generateJwtRefreshToken(user);
+
+    await this.authService.storeRefreshToken(refreshToken, user.id);
+
+    res.cookie('Authentication', accessToken, {
+      httpOnly: true,
+      path: '/',
+      maxAge: dayjs().minute(40).millisecond(),
+    });
+
+    res.cookie('Refresh', refreshToken, {
+      httpOnly: true,
+      path: '/',
+      maxAge: dayjs().hour(2).millisecond(),
+    });
+
+    return;
+  }
+
+  @ApiBasicAuth()
+  @ApiOperation({ summary: 'Logout' })
+  @ApiOkResponse(ApiOkResponseSchema('User success logout.'))
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('Authentication');
+    res.clearCookie('Refresh');
+
+    return;
+  }
+
+  @ApiBasicAuth()
+  @ApiOperation({ summary: 'Getting refresh token' })
+  @HttpCode(200)
+  @UseGuards(JwtRefreshGuard)
+  @Get('refresh')
+  refresh(@Request() req: any, @Res({ passthrough: true }) res: Response) {
+    const accessToken = this.authService.generateJwtAccessToken(req.user);
+
+    res.cookie('Authentication', accessToken);
+
+    return;
   }
 }

@@ -25,7 +25,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { ApiCreatedResponseSchema } from 'src/common/swagger-api-schemas/api-created-response.schema';
+import { ApiCreatedResponseSchema } from '../common/swagger-api-schemas/api-created-response.schema';
 
 @ApiTags('User')
 @Controller('users')

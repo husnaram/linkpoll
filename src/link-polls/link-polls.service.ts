@@ -8,7 +8,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LinksService } from '../links/links.service';
 import { UsersService } from '../users/users.service';
 import { Repository } from 'typeorm';
-import { CreateLinkPollDto } from './dto/create-link-poll.dto';
 import { LinkPollEntity } from './entities/link-poll.entity';
 
 @Injectable()
@@ -36,7 +35,9 @@ export class LinkPollsService {
   }
 
   async findAll() {
-    const polls = await this.linkPollsRepository.find();
+    const polls = await this.linkPollsRepository.find({
+      relations: ['user', 'link'],
+    });
 
     return polls;
   }

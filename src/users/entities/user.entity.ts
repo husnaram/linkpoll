@@ -51,6 +51,13 @@ export class UserEntity {
   isAdmin: boolean;
 
   @ApiProperty()
+  @Exclude()
+  @Column({
+    nullable: true,
+  })
+  currentHashedRefreshToken?: string;
+
+  @ApiProperty()
   @Expose({ name: 'created_at' })
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

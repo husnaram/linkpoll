@@ -8,12 +8,6 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import { LinkPollsService } from './link-polls.service';
-import { CreateLinkPollDto } from './dto/create-link-poll.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { OwnerNotAllowedPollGuard } from './guards/owner-not-allowed-poll.guard';
-import { OnceVoteGuard } from './guards/once-vote.guard';
-import { AdminPollGuard } from '../link-polls/guards/admin-poll.guard';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -23,8 +17,12 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { LinkPollEntity } from './entities/link-poll.entity';
-import { LinkEntity } from 'src/links/entities/link.entity';
+import { LinkPollsService } from './link-polls.service';
+import { CreateLinkPollDto } from './dto/create-link-poll.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { OwnerNotAllowedPollGuard } from './guards/owner-not-allowed-poll.guard';
+import { OnceVoteGuard } from './guards/once-vote.guard';
+import { AdminPollGuard } from '../link-polls/guards/admin-poll.guard';
 
 @ApiTags('Poll')
 @Controller('link-polls')

@@ -15,6 +15,7 @@ specifiers:
   '@nestjs/testing': ^8.0.6
   '@nestjs/typeorm': ^8.0.2
   '@types/bcrypt': ^5.0.0
+  '@types/cookie-parser': ^1.4.2
   '@types/cron': ^1.7.3
   '@types/express': ^4.17.13
   '@types/faker': ^5.5.8
@@ -28,6 +29,7 @@ specifiers:
   bcrypt: ^5.0.1
   class-transformer: ^0.4.0
   class-validator: ^0.13.1
+  cookie-parser: ^1.4.5
   dayjs: ^1.10.7
   eslint: ^7.30.0
   eslint-config-prettier: ^8.3.0
@@ -66,6 +68,7 @@ dependencies:
   bcrypt: 5.0.1
   class-transformer: 0.4.0
   class-validator: 0.13.1
+  cookie-parser: 1.4.5
   dayjs: 1.10.7
   helmet: 4.6.0
   passport: 0.4.1
@@ -83,6 +86,7 @@ devDependencies:
   '@nestjs/schematics': 8.0.3_typescript@4.4.3
   '@nestjs/testing': 8.0.6_0f6569408de1f55b1e6481ed04272f1a
   '@types/bcrypt': 5.0.0
+  '@types/cookie-parser': 1.4.2
   '@types/cron': 1.7.3
   '@types/express': 4.17.13
   '@types/faker': 5.5.8
@@ -1155,6 +1159,12 @@ packages:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
       '@types/node': 16.9.2
+    dev: true
+
+  /@types/cookie-parser/1.4.2:
+    resolution: {integrity: sha512-uwcY8m6SDQqciHsqcKDGbo10GdasYsPCYkH3hVegj9qAah6pX5HivOnOuI3WYmyQMnOATV39zv/Ybs0bC/6iVg==}
+    dependencies:
+      '@types/express': 4.17.13
     dev: true
 
   /@types/cookiejar/2.1.2:
@@ -2279,6 +2289,14 @@ packages:
     dependencies:
       safe-buffer: 5.1.2
     dev: true
+
+  /cookie-parser/1.4.5:
+    resolution: {integrity: sha512-f13bPUj/gG/5mDr+xLmSxxDsB9DQiTIfhJS/sqjrmfAWiAN+x2O4i/XguTL9yDZ+/IFDanJ+5x7hC4CXT9Tdzw==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      cookie: 0.4.0
+      cookie-signature: 1.0.6
+    dev: false
 
   /cookie-signature/1.0.6:
     resolution: {integrity: sha1-4wOogrNCzD7oylE6eZmXNNqzriw=}

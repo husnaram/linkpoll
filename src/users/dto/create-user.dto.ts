@@ -23,4 +23,9 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   readonly avatar_filename: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  readonly currentHashedRefreshToken?: string;
 }

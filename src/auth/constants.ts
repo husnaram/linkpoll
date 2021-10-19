@@ -1,3 +1,6 @@
 export const jwtConstants = {
-  secret: 'secretKey',
+  access:
+    '1d3ac0cdd75cb416d1b3632990135de43dc144a3965bbe75d324a16f2e794c886decd44693f2ff4fc53bf8a6e3dedd76ea7f4ac07ec94834663edc093617c112',
+  refresh:
+    '1f41772791934a2b9dd7eaf03e2b6440f5433daf13f8186f2747fca3feaedec6907df25c852f8cc417cdf3b66f7d5b5ab7af4dbc88451dd1f47bdb0422e6e772',
 };
