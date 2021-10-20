@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { extname } from 'path';
 import { Repository } from 'typeorm';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -135,5 +136,24 @@ export class UsersService {
     this.userRepository.remove(user);
 
     return;
+  }
+
+  static imageFileFilter(req, file, callback) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      return callback(new Error('Only image files are allowed!'), false);
+    }
+
+    callback(null, true);
+  }
+
+  static editFileName(req, file, callback) {
+    const name = file.originalname.split('.')[0];
+    const fileExtName = extname(file.originalname);
+    const randomName = Array(4)
+      .fill(null)
+      .map(() => Math.round(Math.random() * 16).toString(16))
+      .join('');
+
+    callback(null, `${name}-${randomName}${fileExtName}`);
   }
 }

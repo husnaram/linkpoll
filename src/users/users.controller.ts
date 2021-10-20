@@ -29,6 +29,7 @@ import {
 } from '@nestjs/swagger';
 import { ApiCreatedResponseSchema } from '../common/swagger-api-schemas/api-created-response.schema';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 
 @ApiTags('User')
 @Controller('users')
@@ -289,9 +290,21 @@ export class UsersController {
     return this.usersService.remove(+id);
   }
 
+  @UseGuards(JwtAuthGuard, AdminGuard)
   @Post('upload-avatar')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './uploads',
+      filename: UsersService.editFileName,
+    }),
+    fileFilter: UsersService.imageFileFilter,
+  }))
   uploadAvatar(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
+    const response = {
+      origin_filename: file.originalname,
+      filename: file.filename,
+    };
+
+    return response;
   }
 }

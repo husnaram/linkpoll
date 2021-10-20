@@ -8,10 +8,7 @@ import { MulterModule } from '@nestjs/platform-express';
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
-    MulterModule.register({
-      // dest: './upload',
-      storage: './avatar'
-    })
+    MulterModule.register({}),
   ],
   controllers: [UsersController],
   providers: [UsersService],
